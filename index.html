@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MetroVision·AI — Road Damage Assessment</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="logo">
+      <svg class="logo-mark" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M8 10.5h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="2.4 2.4"/>
+      </svg>
+      <span class="logo-text">MetroVision<span class="logo-dot">·</span>AI</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" id="tabAssess" role="tab" aria-selected="true">Assess</button>
+      <button class="tab" id="tabAbout" role="tab" aria-selected="false">About</button>
+    </nav>
+  </header>
+
+  <div class="roadline" aria-hidden="true"></div>
+
+  <!-- ================= ASSESS VIEW ================= -->
+  <main id="assessView">
+
+    <section class="hero">
+      <span class="eyebrow">MUNICIPAL ROAD ASSESSMENT · <span id="status">checking…</span></span>
+      <h1>Spot road damage<br>before it spots your budget.</h1>
+      <p class="hero-sub">Upload a photo of a road surface. Get a pothole, crack, or all-clear read back in seconds.</p>
+    </section>
+
+    <section class="panel">
+      <label class="dropzone" id="dropzone" for="fileInput">
+
+        <div class="doodles" aria-hidden="true">
+          <svg class="doodle d1" viewBox="0 0 64 64"><path d="M26 50h12l-4-30h-4l-4 30Z M20 50h24 M24 40h16 M22 45h20" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          <svg class="doodle d2" viewBox="0 0 64 64"><path d="M32 8 8 48h48L32 8Z M32 24v12 M32 40v2" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          <svg class="doodle d3" viewBox="0 0 64 64"><path d="M24 14h16v6h-16z M22 20h20v6a10 10 0 0 1-20 0z M18 30h4v14a4 4 0 0 0 4 4 M46 30h-4v14a4 4 0 0 1-4 4 M28 48h8v6h-8z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          <svg class="doodle d4" viewBox="0 0 64 64"><path d="M10 20l44 6 M10 44l44-6 M10 20l0 24 M54 26l0 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          <svg class="doodle d5" viewBox="0 0 64 64"><circle cx="32" cy="32" r="16" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="1.4" fill="none"/><path d="M32 22v20 M22 32h20 M25 25l14 14 M39 25l-14 14" stroke="currentColor" stroke-width="1.2"/></svg>
+          <svg class="doodle d6" viewBox="0 0 64 64"><path d="M32 10v18 M20 12h24 M32 28c-8 0-14 5-14 12h28c0-7-6-12-14-12z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+
+        <div class="dropzone-inner" id="dropzoneInner">
+          <span class="dropzone-icon">＋</span>
+          <span class="dropzone-text">Drop an image, or click to browse</span>
+          <span class="dropzone-sub">JPG or PNG</span>
+        </div>
+
+        <div class="preview-wrap" id="previewWrap" hidden>
+          <img id="preview" class="preview" alt="">
+          <span class="replace-btn" id="replaceBtn" title="Replace image">＋ Replace</span>
+        </div>
+      </label>
+      <input type="file" id="fileInput" accept="image/png, image/jpeg" hidden>
+
+      <button id="analyzeBtn" class="analyze-btn" disabled>Analyze photo</button>
+      <p class="error" id="errorMsg" hidden></p>
+    </section>
+
+    <div class="roadline" aria-hidden="true"></div>
+
+    <section class="panel result-panel" id="resultPanel" hidden>
+      <span class="eyebrow">RESULT</span>
+
+      <div class="verdict" id="verdict">
+        <span class="verdict-bar" id="verdictBar"></span>
+        <div class="verdict-text">
+          <span class="verdict-class" id="verdictClass">—</span>
+          <span class="verdict-confidence" id="verdictConfidence">—</span>
+        </div>
+      </div>
+
+      <div class="breakdown" id="breakdown"></div>
+
+      <p class="meta" id="meta"></p>
+    </section>
+  </main>
+
+  <!-- ================= ABOUT VIEW ================= -->
+  <main id="aboutView" hidden>
+    <section class="hero">
+      <span class="eyebrow">THE VISION</span>
+      <h1>Fewer windshield surveys.<br>Faster repairs.</h1>
+    </section>
+
+    <section class="panel about-panel">
+      <p>Most municipalities still assess road condition the way they did fifty years ago: a small crew drives
+      the network on a rotation, eyeballs the pavement, and writes down what they see. It's slow, it's
+      subjective from one inspector to the next, and a network only gets looked at every few months — which
+      means a crack that was cheap to seal in March is a pothole that's expensive to patch by June.</p>
+
+      <p>MetroVision·AI doesn't replace that judgment — it removes the bottleneck in front of it. Any phone
+      photo, from any staff member, any resident report, or any routine drive-by, becomes an instant, consistent
+      read on whether a stretch of road has a crack, a pothole, both, or nothing at all. The same square foot of
+      pavement gets the same call whether it's inspected on a Monday morning or the last day of the fiscal year.</p>
+
+      <p>The result isn't a fancier report — it's more of the network getting looked at, more often, before
+      small damage becomes an expensive repair. Maintenance budgets get spent on the streets that need it next,
+      not just the ones with the loudest complaints.</p>
+
+      <p class="about-note">Runs on your own infrastructure. No accounts, no cloud dependency, no resident
+      data leaves your network.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

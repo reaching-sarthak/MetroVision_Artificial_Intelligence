@@ -1,0 +1,451 @@
+:root {
+  --asphalt-900: #17181a;
+  --asphalt-800: #212325;
+  --asphalt-700: #2b2e31;
+  --asphalt-600: #3a3d41;
+  --concrete-500: #8b8f94;
+  --chalk-100: #e9e7e2;
+  --line-yellow: #f2b705;
+  --hazard-red: #e5484d;
+  --both-red: #b5322e;
+  --caution-amber: #f2994a;
+  --safe-green: #4caf6d;
+
+  --font-display: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Consolas", "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--asphalt-900);
+  color: var(--chalk-100);
+  font-family: var(--font-display);
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- top bar ---------- */
+.topbar {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 20px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-mark { color: var(--line-yellow); flex-shrink: 0; }
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--chalk-100);
+}
+
+.logo-dot { color: var(--line-yellow); }
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--asphalt-800);
+  border: 1px solid var(--asphalt-700);
+  border-radius: 7px;
+  padding: 3px;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  color: var(--concrete-500);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab:hover { color: var(--chalk-100); }
+
+.tab.active {
+  background: var(--asphalt-600);
+  color: var(--chalk-100);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--concrete-500);
+}
+
+#status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+#status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--concrete-500);
+  display: inline-block;
+}
+#status.ok { color: var(--safe-green); }
+#status.ok::before { background: var(--safe-green); }
+#status.error { color: var(--hazard-red); }
+#status.error::before { background: var(--hazard-red); }
+
+/* ---------- signature: road center-line divider ---------- */
+.roadline {
+  width: 100%;
+  max-width: 640px;
+  height: 2px;
+  margin: 22px 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line-yellow) 0px,
+    var(--line-yellow) 22px,
+    transparent 22px,
+    transparent 40px
+  );
+  opacity: 0.55;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  width: 100%;
+  max-width: 640px;
+  padding: 4px 20px 26px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  margin: 10px 0 10px;
+}
+
+.hero-sub {
+  color: var(--concrete-500);
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* ---------- layout ---------- */
+main {
+  width: 100%;
+  max-width: 640px;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main > .hero { padding-left: 0; padding-right: 0; }
+main > .panel { width: 100%; }
+
+/* our own `main { display: flex }` above otherwise silently overrides the
+   browser's default display:none for [hidden] — without this, both
+   #assessView and #aboutView stay visible/stacked no matter which tab
+   is selected. */
+main[hidden] { display: none; }
+
+/* ---------- dropzone ---------- */
+.dropzone {
+  display: block;
+  position: relative;
+  border: 1.5px dashed var(--asphalt-600);
+  border-radius: 6px;
+  background: var(--asphalt-800);
+  min-height: 240px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: var(--line-yellow);
+  background: var(--asphalt-700);
+}
+
+.dropzone-inner {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.dropzone-icon {
+  font-size: 22px;
+  color: var(--concrete-500);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.dropzone-text {
+  font-size: 14px;
+  color: var(--chalk-100);
+}
+
+.dropzone-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--concrete-500);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- floating road-sign doodles ---------- */
+.doodles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.doodle {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  color: var(--concrete-500);
+  opacity: 0.16;
+  animation: drift 26s ease-in-out infinite;
+}
+
+.doodle.d1 { top: 14%;  left: 8%;  animation-duration: 24s; animation-delay: -2s; }
+.doodle.d2 { top: 62%;  left: 14%; animation-duration: 31s; animation-delay: -9s; color: var(--line-yellow); opacity: 0.14; }
+.doodle.d3 { top: 20%;  left: 78%; animation-duration: 27s; animation-delay: -14s; }
+.doodle.d4 { top: 70%;  left: 74%; animation-duration: 22s; animation-delay: -5s; }
+.doodle.d5 { top: 44%;  left: 46%; animation-duration: 34s; animation-delay: -18s; width: 38px; height: 38px; }
+.doodle.d6 { top: 8%;   left: 42%; animation-duration: 29s; animation-delay: -11s; width: 38px; height: 38px; }
+
+@keyframes drift {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(10px, -8px) rotate(3deg); }
+  50%  { transform: translate(-6px, 10px) rotate(-2deg); }
+  75%  { transform: translate(-12px, -6px) rotate(2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.preview-wrap {
+  position: relative;
+  z-index: 2;
+  line-height: 0;
+}
+
+.preview {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  background: var(--asphalt-900);
+}
+
+.replace-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(23, 24, 26, 0.82);
+  border: 1px solid var(--asphalt-600);
+  color: var(--chalk-100);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+  transition: border-color 0.15s ease;
+}
+.replace-btn:hover { border-color: var(--line-yellow); }
+
+/* ---------- analyze button ---------- */
+.analyze-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 6px;
+  background: var(--line-yellow);
+  color: #1a1a1a;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.05s ease;
+}
+
+.analyze-btn:disabled {
+  background: var(--asphalt-700);
+  color: var(--concrete-500);
+  cursor: not-allowed;
+}
+
+.analyze-btn:not(:disabled):hover { opacity: 0.9; }
+.analyze-btn:not(:disabled):active { transform: scale(0.995); }
+
+.analyze-btn.loading {
+  background: var(--asphalt-700);
+  color: var(--concrete-500);
+  cursor: wait;
+}
+
+.error {
+  color: var(--hazard-red);
+  font-size: 13px;
+  margin: 12px 2px 0;
+  align-self: flex-start;
+}
+
+/* ---------- result panel ---------- */
+.result-panel { padding-top: 2px; }
+
+.verdict {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  margin: 14px 0 22px;
+}
+
+.verdict-bar {
+  width: 5px;
+  border-radius: 3px;
+  background: var(--concrete-500);
+  flex-shrink: 0;
+}
+
+.verdict-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.verdict-class {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.verdict-confidence {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--concrete-500);
+}
+
+/* class colors */
+.verdict-bar.pothole, .verdict-class.pothole { background: var(--hazard-red); color: var(--hazard-red); }
+.verdict-bar.crack, .verdict-class.crack { background: var(--caution-amber); color: var(--caution-amber); }
+.verdict-bar.both, .verdict-class.both { background: var(--both-red); color: var(--both-red); }
+.verdict-bar.normal, .verdict-class.normal { background: var(--safe-green); color: var(--safe-green); }
+
+/* ---------- probability breakdown ---------- */
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 52px;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.bar-label { color: var(--concrete-500); }
+
+.bar-track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--asphalt-700);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.bar-fill.pothole { background: var(--hazard-red); }
+.bar-fill.crack { background: var(--caution-amber); }
+.bar-fill.both { background: var(--both-red); }
+.bar-fill.normal { background: var(--safe-green); }
+
+.bar-value { text-align: right; color: var(--chalk-100); }
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--asphalt-600);
+  margin: 22px 2px 0;
+  align-self: flex-start;
+}
+
+/* ---------- about view ---------- */
+.about-panel p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--chalk-100);
+  margin: 0 0 18px;
+}
+
+.about-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--concrete-500);
+  border-top: 1px solid var(--asphalt-700);
+  padding-top: 16px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 480px) {
+  .topbar, main, .roadline, .hero { max-width: 100%; }
+  .hero h1 { font-size: 25px; }
+  .verdict-class { font-size: 22px; }
+  .topbar { flex-wrap: wrap; gap: 12px; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .doodle { animation: none !important; }
+}
+
+/* ---------- keyboard focus ---------- */
+.dropzone:focus-visible,
+.analyze-btn:focus-visible,
+.tab:focus-visible,
+.replace-btn:focus-visible {
+  outline: 2px solid var(--line-yellow);
+  outline-offset: 2px;
+}
