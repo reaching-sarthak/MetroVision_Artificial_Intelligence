@@ -9,11 +9,11 @@ print("Libraries imported successfully.")
 # DATASET PATHS
 # ==============================
 
-image_folder = r"D:\Sarthak's World\NextGenHacks_2026\RDD2022_India\India\train\images"
+image_folder = r"D:\Sarthak's World\MetroVision_Artificial_Intelligence\RDD2022_India\India\train\images"
 
-xml_annotation_folder = r"D:\Sarthak's World\NextGenHacks_2026\RDD2022_India\India\train\annotations\xmls"
+xml_annotation_folder = r"D:\Sarthak's World\MetroVision_Artificial_Intelligence\RDD2022_India\India\train\annotations\xmls"
 
-output_root_folder = r"D:\Sarthak's World\NextGenHacks_2026\explored_data"
+output_root_folder = r"D:\Sarthak's World\MetroVision_Artificial_Intelligence\explored_data"
 
 # ==============================
 

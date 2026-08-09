@@ -10,17 +10,17 @@ import pandas as pd
 
 # Folder containing the road images
 IMAGE_FOLDER = Path(
-    r"D:\Sarthak's World\NextGenHacks_2026\RDD2022_India\India\train\images"
+    r"D:\Sarthak's World\MetroVision_Artificial_Intelligence\RDD2022_India\India\train\images"
 )
 
 # Folder containing the XML annotation files
 XML_FOLDER = Path(
-    r"D:\Sarthak's World\NextGenHacks_2026\RDD2022_India\India\train\annotations\xmls"
+    r"D:\Sarthak's World\MetroVision_Artificial_Intelligence\RDD2022_India\India\train\annotations\xmls"
 )
 
 # Folder where the new classified dataset will be created
 OUTPUT_FOLDER = Path(
-    r"D:\Sarthak's World\NextGenHacks_2026\Explored_data"
+    r"D:\Sarthak's World\MetroVision_Artificial_Intelligence\explored_data"
 )
 
 
