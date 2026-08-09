@@ -1,0 +1,17 @@
+{
+  "optimizer_t": 42408,
+  "dropout_rate": 0.4,
+  "learning_rate": 0.0010000000474974513,
+  "beta1": 0.8999999761581421,
+  "beta2": 0.9990000128746033,
+  "epsilon": 9.99999993922529e-09,
+  "weight_decay": 0.009999999776482582,
+  "saved_at_unix": 1786283956.8962,
+  "progress": {
+    "epoch": 7,
+    "shard_index": 205,
+    "sample_index": 30,
+    "running_loss": 1.1323955404746824,
+    "running_accuracy": 0.5583008995094246
+  }
+}
